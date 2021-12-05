@@ -5,16 +5,48 @@ import javax.persistence.*;
 @Entity
 @Table(name = "player")
 public class Player {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String playerName;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    public String getPlayerName() {
-        return playerName;
-      }
-    
-      public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-      }
+  @OneToOne(mappedBy = "player", cascade = CascadeType.ALL)
+  @PrimaryKeyJoinColumn
+  private Wallet wallet;
+
+  private String firstName;
+  private String lastName;
+  private String phone;
+  private String email;
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
 }
