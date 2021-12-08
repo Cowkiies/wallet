@@ -3,14 +3,19 @@ package com.example.wallet.controllers;
 import java.util.List;
 
 import com.example.wallet.models.Player;
+import com.example.wallet.models.RequestPayload;
 import com.example.wallet.models.Transaction;
+import com.example.wallet.models.Wallet;
 import com.example.wallet.services.PlayerService;
 import com.example.wallet.services.TransactionService;
+import com.example.wallet.services.WalletService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +25,8 @@ public class MainController {
     private PlayerService playerService;
     @Autowired
     private TransactionService transactionService;
+    @Autowired
+    private WalletService walletService;
 
     public MainController() {
     }
@@ -32,25 +39,23 @@ public class MainController {
     }
   
     @GetMapping("/players")
-    public List<Player> listAll(Model model) {
-      List<Player> listPlayers = (List<Player>) playerService.findAll();
-      model.addAttribute("listPlayers", listPlayers);  
-      return listPlayers;
+    public List<Player> listAll(Model model) { 
+      return playerService.findAll();
   }
   
-    @GetMapping("/balance")
-    public String balance(@RequestParam(value = "name", defaultValue = "World") String name) {
-      return String.format("Hello %s!", name);
+    @GetMapping("/balance/{id}")
+    public Wallet balance(@PathVariable Long id) {
+      return walletService.getBalance(id);
     }
   
     @PostMapping("/deposit")
-    public String deposit(@RequestParam(value = "name", defaultValue = "World") String name) {
-      return String.format("Hello %s!", name);
+    public Wallet deposit(@RequestBody RequestPayload requestPayload) {
+      return walletService.deposit(requestPayload);
     }
   
     @PostMapping("/withdraw")
-    public String withdraw(@RequestParam(value = "name", defaultValue = "World") String name) {
-      return String.format("Hello %s!", name);
+    public Wallet withdraw(@RequestBody RequestPayload requestPayload) {
+      return walletService.withdraw(requestPayload);
     }
   
     @PostMapping("/bet")

@@ -7,7 +7,8 @@ CREATE TABLE public.player (
 );
 
 CREATE TABLE public.wallet (
-	player_id serial PRIMARY KEY REFERENCES player,
+	id serial PRIMARY KEY,
+	player_id serial REFERENCES player,
 	cash_amount INTEGER DEFAULT 0,
 	bonus_amount INTEGER DEFAULT 0 CONSTRAINT positive_bonus_amount CHECK (bonus_amount >= 0)
 );

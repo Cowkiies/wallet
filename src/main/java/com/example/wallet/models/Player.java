@@ -9,8 +9,7 @@ public class Player {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @OneToOne(mappedBy = "player", cascade = CascadeType.ALL)
-  @PrimaryKeyJoinColumn
+  @OneToOne(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Wallet wallet;
 
   private String firstName;

@@ -13,7 +13,7 @@ VALUES
     (1,100, 100),
     (2, 50, 0),
     (3, 25, 0)
-ON CONFLICT (player_id)
+ON CONFLICT (id)
 	DO NOTHING;
 
 INSERT INTO 

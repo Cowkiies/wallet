@@ -6,11 +6,10 @@ import javax.persistence.*;
 @Table(name = "wallet")
 public class Wallet {
     @Id
-    @Column(name = "player_id")
     private Long id;
+
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "player_id")
+    @JoinColumn(name = "player_id", referencedColumnName = "id")
     private Player player;
 
     private Integer bonusAmount;
