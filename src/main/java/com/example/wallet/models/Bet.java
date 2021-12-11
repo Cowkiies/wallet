@@ -2,27 +2,35 @@ package com.example.wallet.models;
 
 import javax.persistence.*;
 
+import com.example.wallet.enums.BetStatus;
+
 @Entity
-@Table(name = "wallet")
-public class Wallet {
+@Table(name = "bets")
+public class Bet {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "player_id", referencedColumnName = "id")
     private Player player;
 
     private Integer bonusAmount;
     private Integer cashAmount;
 
-    public Wallet() {
+    @Enumerated(EnumType.STRING)
+    private BetStatus status;
+
+
+    public Bet() {
         super();
     }
 
-    public Wallet(Player player, Integer cashAmount, Integer bonusAmount) {
+    public Bet(Player player, Integer cashAmount, Integer bonusAmount, BetStatus status) {
         this.player = player;
         this.cashAmount = cashAmount;
         this.bonusAmount = bonusAmount;
+        this.status = status;
     }
 
     public Integer getBonusAmount() {
@@ -41,7 +49,11 @@ public class Wallet {
         this.cashAmount = cashAmount;
     }
 
-    public Player getPlayer() {
-        return player;
+    public BetStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BetStatus status) {
+        this.status = status;
     }
 }

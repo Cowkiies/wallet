@@ -1,5 +1,7 @@
 package com.example.wallet.models;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,12 @@ public class Player {
 
   @OneToOne(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Wallet wallet;
+
+  @OneToMany(mappedBy = "player")
+  private List<Bet> bets;
+
+  @OneToMany(mappedBy = "player")
+  private List<Transaction> transactions;
 
   private String firstName;
   private String lastName;

@@ -10,4 +10,5 @@ public interface IWalletService {
     public Wallet getBalance(Long id);
     public Wallet deposit(RequestPayload requestPayload);
     public Wallet withdraw(RequestPayload requestPayload);
+    public Wallet placeBet(RequestPayload requestPayload);
 }

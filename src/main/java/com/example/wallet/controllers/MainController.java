@@ -2,10 +2,12 @@ package com.example.wallet.controllers;
 
 import java.util.List;
 
+import com.example.wallet.models.Bet;
 import com.example.wallet.models.Player;
 import com.example.wallet.models.RequestPayload;
 import com.example.wallet.models.Transaction;
 import com.example.wallet.models.Wallet;
+import com.example.wallet.services.BetService;
 import com.example.wallet.services.PlayerService;
 import com.example.wallet.services.TransactionService;
 import com.example.wallet.services.WalletService;
@@ -27,6 +29,8 @@ public class MainController {
     private TransactionService transactionService;
     @Autowired
     private WalletService walletService;
+    @Autowired
+    private BetService betService;
 
     public MainController() {
     }
@@ -59,8 +63,9 @@ public class MainController {
     }
   
     @PostMapping("/bet")
-    public String bet(@RequestParam(value = "name", defaultValue = "World") String name) {
-      return String.format("Hello %s!", name);
+    public Bet bet(@RequestBody RequestPayload requestPayload) {
+      var bet = walletService.placeBet(requestPayload);
+      return betService.createBet(bet.getPlayer(), bet.getCashAmount(), bet.getBonusAmount());
     }
   
     @PostMapping("/win")
