@@ -17,6 +17,18 @@ public class Transaction {
     private Integer amount;
     private Timestamp dateUtc;
 
+
+    public Transaction() {
+        super();
+    }
+
+    public Transaction(Long id, Player player, Integer amount, Timestamp dateUtc) {
+        this.id = id;
+        this.player = player;
+        this.amount = amount;
+        this.dateUtc = dateUtc;
+    }
+
     public Integer getAmount() {
         return amount;
     }

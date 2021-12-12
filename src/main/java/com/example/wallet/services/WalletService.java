@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 public class WalletService implements IWalletService {
     @Autowired
     private WalletRepository repository;
+    @Autowired
+    private TransactionService transactionService;
 
     @Override
     public List<Wallet> findAll() {
@@ -36,6 +38,7 @@ public class WalletService implements IWalletService {
                     wallet.setCashAmount(wallet.getCashAmount() + amount);
                     if (amount >= 100)
                         wallet.setBonusAmount(wallet.getBonusAmount() + amount);
+                    transactionService.createTransaction(requestPayload);
                     return repository.save(wallet);
                 })
                 .orElseThrow(() -> new PlayerNotFoundException(requestPayload.getPlayerId()));
@@ -52,6 +55,7 @@ public class WalletService implements IWalletService {
                     } else {
                         throw new NotEnoughFundsException();
                     }
+                    transactionService.createTransaction(requestPayload.setNegativeAmount());
                     return repository.save(wallet);
                 })
                 .orElseThrow(() -> new PlayerNotFoundException(requestPayload.getPlayerId()));
@@ -81,6 +85,7 @@ public class WalletService implements IWalletService {
                             throw new NotEnoughFundsException();
                         }
                     }
+                    transactionService.createTransaction(requestPayload.setNegativeAmount());
                     repository.save(wallet);
                     return new Wallet(wallet.getPlayer(), betCashAmount, betBonusAmount);
                 })

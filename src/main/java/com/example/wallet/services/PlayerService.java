@@ -2,6 +2,7 @@ package com.example.wallet.services;
 
 import java.util.List;
 
+import com.example.wallet.exceptions.PlayerNotFoundException;
 import com.example.wallet.models.Player;
 import com.example.wallet.repositories.PlayerRepository;
 
@@ -17,5 +18,11 @@ public class PlayerService implements IPlayerService {
     public List<Player> findAll() {
         List<Player> players = (List<Player>) repository.findAll();
         return players;
+    }
+
+    @Override
+    public Player getById(Long id) {
+        return repository.findById(id)
+            .orElseThrow(() -> new PlayerNotFoundException(id));
     }
 }

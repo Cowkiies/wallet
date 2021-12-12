@@ -6,4 +6,5 @@ import com.example.wallet.models.Player;
 
 public interface IPlayerService {
     public List<Player> findAll();
+    public Player getById(Long id);
 }

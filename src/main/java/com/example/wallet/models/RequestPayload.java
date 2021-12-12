@@ -28,4 +28,9 @@ public class RequestPayload {
     public Integer getAmount() {
         return amount;
     }
+
+    public RequestPayload setNegativeAmount() {
+      this.amount = -amount;
+      return this;
+    }
 }
