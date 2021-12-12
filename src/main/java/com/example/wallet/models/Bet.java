@@ -56,4 +56,8 @@ public class Bet {
     public void setStatus(BetStatus status) {
         this.status = status;
     }
+
+    public Long getPlayerId() {
+        return player.getId();
+    }
 }

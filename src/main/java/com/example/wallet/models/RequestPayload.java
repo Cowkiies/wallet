@@ -4,6 +4,7 @@ public class RequestPayload {
     private Long transactionId;
     private Long playerId;
     private Integer amount;
+    private Long betId;
 
     public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
@@ -27,6 +28,14 @@ public class RequestPayload {
 
     public Integer getAmount() {
         return amount;
+    }
+
+    public Long getBetId() {
+      return betId;
+    }
+
+    public void setBetId(Long betId) {
+      this.betId = betId;
     }
 
     public RequestPayload setNegativeAmount() {

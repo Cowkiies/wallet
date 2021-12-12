@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -49,7 +48,7 @@ public class MainController {
   
     @GetMapping("/balance/{id}")
     public Wallet balance(@PathVariable Long id) {
-      return walletService.getBalance(id);
+      return walletService.getById(id);
     }
   
     @PostMapping("/deposit")
@@ -69,7 +68,12 @@ public class MainController {
     }
   
     @PostMapping("/win")
-    public String win(@RequestParam(value = "name", defaultValue = "World") String name) {
-      return String.format("Hello %s!", name);
+    public Wallet win(@RequestBody RequestPayload requestPayload) {
+      return betService.finalizeBet(requestPayload, true);
+    }
+    
+    @PostMapping("/lose")
+    public Wallet lose(@RequestBody RequestPayload requestPayload) {
+      return betService.finalizeBet(requestPayload, false);
     }  
 }

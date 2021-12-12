@@ -25,9 +25,14 @@ public class WalletService implements IWalletService {
     }
 
     @Override
-    public Wallet getBalance(Long id) {
+    public Wallet getById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new PlayerNotFoundException(id));
+    }
+
+    @Override
+    public Wallet saveWallet(Wallet wallet) {
+        return repository.save(wallet);
     }
 
     @Override
