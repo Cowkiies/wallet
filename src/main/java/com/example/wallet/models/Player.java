@@ -8,16 +8,16 @@ import javax.persistence.*;
 @Table(name = "player")
 public class Player {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @OneToOne(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Wallet wallet;
 
-  @OneToMany(mappedBy = "player")
+  @OneToMany(mappedBy = "player", orphanRemoval = true)
   private List<Bet> bets;
 
-  @OneToMany(mappedBy = "player")
+  @OneToMany(mappedBy = "player", orphanRemoval = true)
   private List<Transaction> transactions;
 
   private String firstName;

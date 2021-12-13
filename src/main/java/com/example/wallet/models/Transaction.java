@@ -8,9 +8,9 @@ import javax.persistence.*;
 @Table(name = "transactions")
 public class Transaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "player_id", referencedColumnName = "id")
     private Player player;
 
@@ -18,7 +18,7 @@ public class Transaction {
     private Timestamp dateUtc;
 
 
-    public Transaction() {
+    public Transaction() {  
         super();
     }
 
@@ -43,5 +43,13 @@ public class Transaction {
 
     public void setDateUtc(Timestamp dateUtc) {
         this.dateUtc = dateUtc;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
