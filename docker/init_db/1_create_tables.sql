@@ -9,14 +9,14 @@ CREATE TABLE public.player (
 CREATE TABLE public.wallet (
 	id bigserial PRIMARY KEY,
 	player_id BIGINT REFERENCES player,
-	cash_amount INTEGER DEFAULT 0 CHECK (cash_amount >= 0),
-	bonus_amount INTEGER DEFAULT 0 CHECK (bonus_amount >= 0)
+	cash_amount FLOAT DEFAULT 0 CHECK (cash_amount >= 0),
+	bonus_amount FLOAT DEFAULT 0 CHECK (bonus_amount >= 0)
 );
 
 CREATE TABLE public.transactions (
 	id bigserial PRIMARY KEY,
 	player_id BIGINT REFERENCES player,
-	amount INTEGER DEFAULT 0,
+	amount FLOAT DEFAULT 0,
 	date_utc TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc') NOT NULL
 );
 
@@ -24,6 +24,6 @@ CREATE TABLE public.bets (
 	id bigserial PRIMARY KEY,
 	player_id BIGINT REFERENCES player,
 	status VARCHAR(10) NOT NULL,
-	cash_amount INTEGER DEFAULT 0 CHECK (cash_amount >= 0),
-	bonus_amount INTEGER DEFAULT 0 CHECK (bonus_amount >= 0)
+	cash_amount FLOAT DEFAULT 0 CHECK (cash_amount >= 0),
+	bonus_amount FLOAT DEFAULT 0 CHECK (bonus_amount >= 0)
 );

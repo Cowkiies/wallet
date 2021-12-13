@@ -15,8 +15,8 @@ public class Bet {
     @JoinColumn(name = "player_id", referencedColumnName = "id")
     private Player player;
 
-    private Integer bonusAmount;
-    private Integer cashAmount;
+    private float bonusAmount;
+    private float cashAmount;
 
     @Enumerated(EnumType.STRING)
     private BetStatus status;
@@ -26,26 +26,26 @@ public class Bet {
         super();
     }
 
-    public Bet(Player player, Integer cashAmount, Integer bonusAmount, BetStatus status) {
+    public Bet(Player player, float cashAmount, float bonusAmount, BetStatus status) {
         this.player = player;
         this.cashAmount = cashAmount;
         this.bonusAmount = bonusAmount;
         this.status = status;
     }
 
-    public Integer getBonusAmount() {
+    public float getBonusAmount() {
         return bonusAmount;
     }
 
-    public void setBonusAmount(Integer bonusAmount) {
+    public void setBonusAmount(float bonusAmount) {
         this.bonusAmount = bonusAmount;
     }
 
-    public Integer getCashAmount() {
+    public float getCashAmount() {
         return cashAmount;
     }
 
-    public void setCashAmount(Integer cashAmount) {
+    public void setCashAmount(float cashAmount) {
         this.cashAmount = cashAmount;
     }
 

@@ -3,6 +3,7 @@ package com.example.wallet.services;
 import java.util.List;
 
 import com.example.wallet.enums.BetStatus;
+import com.example.wallet.exceptions.BetAlreadyFinalizedException;
 import com.example.wallet.exceptions.BetNotFoundException;
 import com.example.wallet.models.Bet;
 import com.example.wallet.models.Player;
@@ -29,7 +30,7 @@ public class BetService implements IBetService {
     }
 
     @Override
-    public Bet createBet(Player player, Integer cashAmount, Integer bonusAmount) {
+    public Bet createBet(Player player, float cashAmount, float bonusAmount) {
         return repository.save(new Bet(player, cashAmount, bonusAmount, BetStatus.PENDING));
     }
 
@@ -37,6 +38,7 @@ public class BetService implements IBetService {
     public Wallet finalizeBet(RequestPayload requestPayload, Boolean hasWon) {
         return repository.findById(requestPayload.getBetId())
         .map(bet -> {
+            if (bet.getStatus() != BetStatus.PENDING) throw new BetAlreadyFinalizedException(requestPayload.getBetId());
             var newStatus = hasWon ? BetStatus.WON : BetStatus.LOST;
             var amountWon = hasWon ? requestPayload.getAmount() : 0;
             var wallet = walletService.getById(bet.getPlayerId());
@@ -46,8 +48,8 @@ public class BetService implements IBetService {
             transactionService.createTransaction(hasWon ? requestPayload : requestPayload.setNegativeAmount());
             System.out.println((bet.getCashAmount()/totalAmountBet) * amountWon);
             System.out.println((bet.getBonusAmount()/totalAmountBet) * amountWon);
-            wallet.setCashAmount(wallet.getCashAmount() + (int)(((float)bet.getCashAmount()/totalAmountBet) * amountWon));
-            wallet.setBonusAmount(wallet.getBonusAmount() + (int)(((float)bet.getBonusAmount()/totalAmountBet) * amountWon));
+            wallet.setCashAmount(wallet.getCashAmount() + (bet.getCashAmount()/totalAmountBet) * amountWon);
+            wallet.setBonusAmount(wallet.getBonusAmount() + (bet.getBonusAmount()/totalAmountBet) * amountWon);
             bet.setStatus(newStatus);
             repository.save(bet);
             return walletService.saveWallet(wallet);

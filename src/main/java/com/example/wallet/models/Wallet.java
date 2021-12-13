@@ -12,32 +12,32 @@ public class Wallet {
     @JoinColumn(name = "player_id", referencedColumnName = "id")
     private Player player;
 
-    private Integer bonusAmount;
-    private Integer cashAmount;
+    private float bonusAmount;
+    private float cashAmount;
 
     public Wallet() {
         super();
     }
 
-    public Wallet(Player player, Integer cashAmount, Integer bonusAmount) {
+    public Wallet(Player player, float cashAmount, float bonusAmount) {
         this.player = player;
         this.cashAmount = cashAmount;
         this.bonusAmount = bonusAmount;
     }
 
-    public Integer getBonusAmount() {
+    public float getBonusAmount() {
         return bonusAmount;
     }
 
-    public void setBonusAmount(Integer bonusAmount) {
+    public void setBonusAmount(float bonusAmount) {
         this.bonusAmount = bonusAmount;
     }
 
-    public Integer getCashAmount() {
+    public float getCashAmount() {
         return cashAmount;
     }
 
-    public void setCashAmount(Integer cashAmount) {
+    public void setCashAmount(float cashAmount) {
         this.cashAmount = cashAmount;
     }
 

@@ -3,7 +3,7 @@ package com.example.wallet.models;
 public class RequestPayload {
     private Long transactionId;
     private Long playerId;
-    private Integer amount;
+    private float amount;
     private Long betId;
 
     public void setTransactionId(Long transactionId) {
@@ -22,11 +22,11 @@ public class RequestPayload {
         return playerId;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
       }
 
-    public Integer getAmount() {
+    public float getAmount() {
         return amount;
     }
 

@@ -14,7 +14,7 @@ public class Transaction {
     @JoinColumn(name = "player_id", referencedColumnName = "id")
     private Player player;
 
-    private Integer amount;
+    private float amount;
     private Timestamp dateUtc;
 
 
@@ -22,18 +22,18 @@ public class Transaction {
         super();
     }
 
-    public Transaction(Long id, Player player, Integer amount, Timestamp dateUtc) {
+    public Transaction(Long id, Player player, float amount, Timestamp dateUtc) {
         this.id = id;
         this.player = player;
         this.amount = amount;
         this.dateUtc = dateUtc;
     }
 
-    public Integer getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 

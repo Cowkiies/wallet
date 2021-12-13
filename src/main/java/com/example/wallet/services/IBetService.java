@@ -9,6 +9,6 @@ import com.example.wallet.models.Wallet;
 
 public interface IBetService {
     public List<Bet> findAll();
-    public Bet createBet(Player player, Integer cashAmount, Integer bonusAmount);
+    public Bet createBet(Player player, float cashAmount, float bonusAmount);
     public Wallet finalizeBet(RequestPayload requestPayload, Boolean hasWon);
 }
