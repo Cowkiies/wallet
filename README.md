@@ -83,6 +83,32 @@ Response exemple:
 }
 ```
 
+### Bet
+`/bets`
+Return a list of bets. Accept pagination and can be filtered by `playerId` and `status`.
+`status` values accepted are `WON`, `PENDING` and `LOST`.
+ex: `/bets?status=WON&playerId=1` will return all the bets won by Player 1.
+
+`/bets/{id}`
+Return bet of given id.
+ex: `/bets/2` will return bet of id 2.
+
+Response exemple:
+```
+{
+    "player": {
+        "id": 2,
+        "firstName": "Richard",
+        "lastName": "Roe",
+        "phone": "+35612344321",
+        "email": "richardroe@gmail.com"
+    },
+    "bonusAmount": 50.0,
+    "cashAmount": 0.0,
+    "status": "PENDING"
+}
+```
+
 
 ## Post
 ### Wallet

@@ -1,7 +1,9 @@
 package com.example.wallet.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.example.wallet.enums.BetStatus;
 import com.example.wallet.models.Bet;
 import com.example.wallet.models.Player;
 import com.example.wallet.models.RequestPayload;
@@ -42,8 +44,7 @@ public class MainController {
       @RequestParam(defaultValue = "1970-01-01T00:00:00Z") String dateFrom,
       @RequestParam(defaultValue = "2100-01-01T00:00:00Z") String dateTo,
       @RequestParam(defaultValue = "0") int page,
-      @RequestParam(defaultValue = "5") int size
-  ) {
+      @RequestParam(defaultValue = "5") int size) {
     Pageable paging = PageRequest.of(page, size);
     List<Transaction> transactions;
 
@@ -66,8 +67,7 @@ public class MainController {
       @RequestParam(required = false) String firstName,
       @RequestParam(required = false) String lastName,
       @RequestParam(defaultValue = "0") int page,
-      @RequestParam(defaultValue = "5") int size
-      ) {
+      @RequestParam(defaultValue = "5") int size) {
     List<Player> players;
     Pageable paging = PageRequest.of(page, size);
 
@@ -83,6 +83,33 @@ public class MainController {
   @GetMapping("/players/{id}")
   public Player playerById(@PathVariable Long id) {
     return playerService.findById(id);
+  }
+
+  @GetMapping("/bets")
+  public List<Bet> bets(
+      @RequestParam(required = false) Long playerId,
+      @RequestParam(required = false) BetStatus status,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "5") int size) {
+    Pageable paging = PageRequest.of(page, size);
+    List<Bet> bets = new ArrayList<Bet>();
+
+    if (playerId != null && status != null) {
+      bets = betService.findByPlayerIdAndStatus(playerId, status, paging);
+    } else if (playerId != null) {
+      bets = betService.findByPlayerId(playerId, paging);
+    } else if (status != null) {
+      bets = betService.findByStatus(status, paging);
+    } else {
+      bets = betService.findAll();
+    }
+
+    return bets;
+  }
+
+  @GetMapping("/bets/{id}")
+  public Bet betById(@PathVariable Long id) {
+    return betService.findById(id);
   }
 
   @GetMapping("/balance/{id}")

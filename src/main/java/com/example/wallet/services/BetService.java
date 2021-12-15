@@ -12,6 +12,7 @@ import com.example.wallet.models.Wallet;
 import com.example.wallet.repositories.BetRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,6 +31,27 @@ public class BetService implements IBetService {
     }
 
     @Override
+    public Bet findById(Long id) {
+        return repository.findById(id)
+            .orElseThrow(() -> new BetNotFoundException(id));
+    }
+
+    @Override
+    public List<Bet> findByPlayerId(Long id, Pageable pageable) {
+        return repository.findByPlayerId(id, pageable).getContent();
+    }
+
+    @Override
+    public List<Bet> findByStatus(BetStatus status, Pageable pageable) {
+        return repository.findByStatus(status, pageable).getContent();
+    }
+
+    @Override
+    public List<Bet> findByPlayerIdAndStatus(Long id, BetStatus status, Pageable pageable) {
+        return repository.findByPlayerIdAndStatus(id, status, pageable).getContent();
+    }
+
+    @Override
     public Bet createBet(Player player, float cashAmount, float bonusAmount) {
         return repository.save(new Bet(player, cashAmount, bonusAmount, BetStatus.PENDING));
     }
@@ -41,10 +63,10 @@ public class BetService implements IBetService {
             if (bet.getStatus() != BetStatus.PENDING) throw new BetAlreadyFinalizedException(requestPayload.getBetId());
             var newStatus = hasWon ? BetStatus.WON : BetStatus.LOST;
             var amountWon = hasWon ? requestPayload.getAmount() : 0;
-            var wallet = walletService.getById(bet.getPlayerId());
+            var wallet = walletService.getById(bet.getPlayer().getId());
             var totalAmountBet = bet.getCashAmount() + bet.getBonusAmount();
 
-            requestPayload.setPlayerId(bet.getPlayerId());
+            requestPayload.setPlayerId(bet.getPlayer().getId());
             transactionService.createTransaction(hasWon ? requestPayload : requestPayload.setNegativeAmount());
             System.out.println((bet.getCashAmount()/totalAmountBet) * amountWon);
             System.out.println((bet.getBonusAmount()/totalAmountBet) * amountWon);
