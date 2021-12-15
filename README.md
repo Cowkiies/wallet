@@ -22,10 +22,12 @@ Default value for size is 5 and 0 for page.
 ### Player
 `/players`
 Return a list of players. Accept pagination and can be filtered by `firstName` and `lastName`.
+
 ex: `/players?firstName=john` will return all players named John.
 
 `/players/{id}`
 Return Player of given id.
+
 ex: `/players/2` will return player of id 2.
 
 Response exemple:
@@ -43,10 +45,12 @@ Response exemple:
 `/transactions`
 Return a list of transactions. Accept pagination and can be filtered by `dateTo`, `dateFrom` and `playerId`.
 Dates must be of format ISO-8601 with time: `2021-12-01T12:30:00Z`
+
 ex: `/transactions?dateFrom=2021-12-01T00:00:00Z&playerId=3` will return all transaction made by Player 3 starting from the 1st december 2021
 
 `transactions/{id}`
 Return transaction of given id.
+
 ex: `/transactions/2` will return transaction of id 2.
 
 Response exemple:
@@ -87,10 +91,12 @@ Response exemple:
 `/bets`
 Return a list of bets. Accept pagination and can be filtered by `playerId` and `status`.
 `status` values accepted are `WON`, `PENDING` and `LOST`.
+
 ex: `/bets?status=WON&playerId=1` will return all the bets won by Player 1.
 
 `/bets/{id}`
 Return bet of given id.
+
 ex: `/bets/2` will return bet of id 2.
 
 Response exemple:
