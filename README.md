@@ -20,11 +20,11 @@ Default value for size is 5 and 0 for page.
 
 ## Get
 ### Player
-- `/players`
+`/players`
 Return a list of players. Accept pagination and can be filtered by `firstName` and `lastName`.
 ex: `/players?firstName=john` will return all players named John.
 
-- `/players/{id}`
+`/players/{id}`
 Return Player of given id.
 ex: `/players/2` will return player of id 2.
 
@@ -40,12 +40,12 @@ Response exemple:
 ```
 
 ### Transaction
-- `/transactions`
+`/transactions`
 Return a list of transactions. Accept pagination and can be filtered by `dateTo`, `dateFrom` and `playerId`.
 Dates must be of format ISO-8601 with time: `2021-12-01T12:30:00Z`
 ex: `/transactions?dateFrom=2021-12-01T00:00:00Z&playerId=3` will return all transaction made by Player 3 starting from the 1st december 2021
 
-- `transactions/{id}`
+`transactions/{id}`
 Return transaction of given id.
 ex: `/transactions/2` will return transaction of id 2.
 
@@ -65,7 +65,7 @@ Response exemple:
 ```
 
 ### Wallet
-- `balance/{id}`
+`balance/{id}`
 Return wallet of player with given id.
 
 Response exemple:
@@ -86,7 +86,7 @@ Response exemple:
 
 ## Post
 ### Wallet
-- `/deposit`
+`/deposit`
 Deposit cash to a player's wallet
 
 Exemple of expected body:
@@ -114,7 +114,8 @@ Response:
 ```
 
 
-- `/withdraw`
+
+`/withdraw`
 Withdraw cash from a player's wallet.
 
 Exemple of expected body:
@@ -142,7 +143,7 @@ Response:
 ```
 
 ### Bet
-- `/bet`
+`/bet`
 Register a pending bet for a given player.
 
 Exemple of expected body:
@@ -164,7 +165,8 @@ Response:
 }
 ```
 
-- `/win` and `/lose`
+
+ `/win` and `/lose`
 Finalize bet and deposit the amount money to the player wallet. The player will earn 0 on a `/lose`.
 
 Exemple of expected body:
